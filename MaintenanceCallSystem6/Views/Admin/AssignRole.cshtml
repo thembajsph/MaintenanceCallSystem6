@@ -1,0 +1,9 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post" asp-controller="Admin" asp-action="AssignAdminRole">
+    <input type="text" name="email" placeholder="Enter email" />
+    <button type="submit">Assign Admin Role</button>
+</form>

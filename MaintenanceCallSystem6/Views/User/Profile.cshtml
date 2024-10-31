@@ -1,0 +1,27 @@
+﻿@model MaintenanceCallSystem6.ViewModels.UserProfileViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "User Profile";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>@Model.FirstName @Model.LastName</h2>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Email:</strong> @Model.Email</p>
+            <p class="card-text"><strong>Phone:</strong> @Model.PhoneNumber</p>
+
+            <!-- Add more profile details here -->
+        </div>
+        <div class="card-footer text-center">
+            <!-- Back button -->
+            <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+</div>
+

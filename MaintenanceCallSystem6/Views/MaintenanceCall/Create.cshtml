@@ -1,0 +1,179 @@
+﻿@model MaintenanceCallSystem6.Models.MaintenanceCall
+@using MaintenanceCallSystem6.Enums
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>Create Maintenance Call</h2>
+
+    @* Display validation summary *@
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DateLogged" class="control-label"></label>
+            <input asp-for="DateLogged" type="date" class="form-control" />
+            <span asp-validation-for="DateLogged" class="text-danger"></span>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TechnicianAssigned" class="control-label"></label>
+                <input asp-for="TechnicianAssigned" class="form-control" />
+                <span asp-validation-for="TechnicianAssigned" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateAttended" class="control-label"></label>
+                <input asp-for="DateAttended" type="date" class="form-control" />
+                <span asp-validation-for="DateAttended" class="text-danger"></span>
+            </div>
+        }
+
+        <div class="form-group">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="City" class="control-label"></label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Province" class="control-label"></label>
+            <input asp-for="Province" class="form-control" />
+            <span asp-validation-for="Province" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PostalCode" class="control-label"></label>
+            <input asp-for="PostalCode" class="form-control" />
+            <span asp-validation-for="PostalCode" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="IssueTypeEnum" class="control-label"></label>
+        public IssueTypeEnum IssueType { get; set; } // Use the enum here
+            <select asp-for="IssueTypeEnum" class="form-control" asp-items="Html.GetEnumSelectList<IssueTypeEnum>()">
+                @* Assuming IssueTypeEnum is an enum with possible types *@
+                <option value="">-- Select Issue Type --</option>
+            </select>
+            <span asp-validation-for="IssueTypeEnum" class="text-danger"></span>
+        </div>
+        @* <div class="form-group ">
+            <label asp-for="User"></label>
+            <input asp-for="User" class="form-control" />
+            <span asp-validation-for="User" class="text-danger"></span>
+        </div>
+
+        <div class="form-group ">
+        <label asp-for="UserId"></label>
+            <input asp-for="UserId" class="form-control"  />
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div> *@
+
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+
+@* 3 now correct
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Description"></label>
+        <input asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div>
+        <label asp-for="DateLogged"></label>
+        <input asp-for="DateLogged" type="date" />
+        <span asp-validation-for="DateLogged"></span>
+    </div>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <div>
+            <label asp-for="Status"></label>
+            <input asp-for="Status" />
+            <span asp-validation-for="Status"></span>
+        </div>
+        <div>
+            <label asp-for="TechnicianAssigned"></label>
+            <input asp-for="TechnicianAssigned" />
+            <span asp-validation-for="TechnicianAssigned"></span>
+        </div>
+        <div>
+            <label asp-for="DateAttended"></label>
+            <input asp-for="DateAttended" type="date" />
+            <span asp-validation-for="DateAttended"></span>
+        </div>
+    }
+
+    <div>
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+    <div>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+    <button type="submit">Create</button>
+</form>
+ *@

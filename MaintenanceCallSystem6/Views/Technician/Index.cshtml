@@ -1,0 +1,70 @@
+﻿@model MaintenanceCallSystem6.ViewModels.TechnicianCompositeViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Adjust if necessary
+}
+
+<div class="container mt-4">
+    <h2>Technicians</h2>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Technician Name</th>
+                <th>Department</th>
+                <th>Available</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var technician in Model.Technicians)
+            {
+                <tr>
+                    <td>@(technician.TechnicianName ?? "N/A")</td>
+                    <td>@(technician.Department ?? "N/A")</td>
+                    <td>@(technician.Available ? "Yes" : "No")</td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = technician.Id })" class="btn btn-warning">Edit</a>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete(@technician.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2 class="mt-5">Unassigned Maintenance Calls</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Issue Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var maintenanceCall in Model.MaintenanceCalls)
+            {
+                <tr>
+                    <td>@maintenanceCall.Id</td>
+                    <td>@maintenanceCall.Description</td>
+                    <td>@maintenanceCall.IssueTypeEnum</td>
+                    <td>
+                        <a asp-action="AssignTechnician" asp-route-callId="@maintenanceCall.Id" class="btn btn-primary">Assign Technician</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmDelete(id) {
+            if (confirm('Are you sure you want to delete this technician?')) {
+                window.location.href = '@Url.Action("Delete", "Technician")?id=' + id;
+            }
+        }
+    </script>
+}
+
+

@@ -1,0 +1,72 @@
+﻿@model MaintenanceCallSystem6.Models.MaintenanceCall
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Delete Maintenance Call";
+}
+
+<div class="container mt-4">
+    <h2 class="text-danger">Delete Maintenance Call</h2>
+
+    <h3>Are you sure you want to delete this?</h3>
+
+    <div class="border rounded p-3 bg-light">
+        <h4>Maintenance Call Details</h4>
+        <dl class="row">
+            <dt class="col-sm-3">
+                Description
+            </dt>
+            <dd class="col-sm-9">
+                @(Model.Description ?? "No Description")
+            </dd>
+            <dt class="col-sm-3">
+                Status
+            </dt>
+            <dd class="col-sm-9">
+                @(Model.Status ?? "Unknown")
+            </dd>
+            <dt class="col-sm-3">
+                Technician Assigned
+            </dt>
+            <dd class="col-sm-9">
+                @(Model.TechnicianAssigned ?? "Unassigned")
+            </dd>
+            <dt class="col-sm-3">
+                Address
+            </dt>
+            <dd class="col-sm-9">
+                @(Model.Address ?? "No Address")
+            </dd>
+            <dt class="col-sm-3">
+                City
+            </dt>
+            <dd class="col-sm-9">
+                @(Model.City ?? "Default City")
+            </dd>
+            <dt class="col-sm-3">
+                Province
+            </dt>
+            <dd class="col-sm-9">
+                @(Model.Province ?? "Unknown Province")
+            </dd>
+            <dt class="col-sm-3">
+                Postal Code
+            </dt>
+            <dd class="col-sm-9">
+                @(Model.PostalCode ?? "Unknown")
+            </dd>
+
+        </dl>
+
+        <form asp-action="DeleteConfirmed" method="post" class="mt-3">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-action="Index" class="btn btn-secondary ml-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

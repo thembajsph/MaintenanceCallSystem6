@@ -1,0 +1,21 @@
+﻿@model MaintenanceCallSystem6.Models.Technician
+
+<h2>Create Technician</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="TechnicianName" class="control-label"></label>
+        <input asp-for="TechnicianName" class="form-control" />
+        <span asp-validation-for="TechnicianName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Department" class="control-label"></label>
+        <input asp-for="Department" class="form-control" />
+        <span asp-validation-for="Department" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Available" class="control-label"></label>
+        <input asp-for="Available" type="checkbox" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

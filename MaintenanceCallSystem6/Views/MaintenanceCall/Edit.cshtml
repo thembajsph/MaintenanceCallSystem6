@@ -1,0 +1,157 @@
+﻿@model MaintenanceCallSystem6.Models.MaintenanceCall
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAdmin = User.IsInRole("Admin");
+
+    // Example lists for the drop-downs
+    var provinces = new List<string> { "Gauteng", "Western Cape", "KwaZulu-Natal", "Eastern Cape", "Free State" };
+    var statuses = new List<string> { "Pending", "In Progress", "Completed" };
+    var technicians = new List<string>
+    {
+        "John Smith",
+        "Sarah Johnson",
+        "Michael Williams",
+        "Emily Davis",
+        "Robert Brown",
+        "Jessica Miller",
+        "David Wilson",
+        "Sophia Anderson",
+        "James Taylor",
+        "Linda Martinez"
+    };
+}
+
+<h2>Edit Maintenance Call</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateLogged" class="control-label"></label>
+        <input asp-for="DateLogged" class="form-control" type="date" />
+        <span asp-validation-for="DateLogged" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <!-- Drop-down for Province -->
+    <div class="form-group">
+        <label asp-for="Province" class="control-label"></label>
+        <select asp-for="Province" class="form-control">
+            <option value="">-- Select Province --</option>
+            @foreach (var province in provinces)
+            {
+                <option value="@province" selected="@(Model.Province == province ? "selected" : null)">@province</option>
+
+            }
+        </select>
+        <span asp-validation-for="Province" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="City" class="control-label"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PostalCode" class="control-label"></label>
+        <input asp-for="PostalCode" class="form-control" />
+        <span asp-validation-for="PostalCode" class="text-danger"></span>
+    </div>
+
+    @if (isAdmin)
+    {
+        <!-- Drop-down for Status -->
+        <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <select asp-for="Status" class="form-control">
+                <option value="">-- Select Status --</option>
+                @foreach (var status in statuses)
+                {
+                    <option value="@status" selected="@(Model.Status == status ? "selected" : null)">@status</option>
+                }
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <!-- Drop-down for TechnicianAssigned -->
+        <div class="form-group">
+            <label asp-for="TechnicianAssigned" class="control-label"></label>
+            <select asp-for="TechnicianAssigned" class="form-control">
+                <option value="">-- Select Technician --</option>
+                @foreach (var technician in technicians)
+                {
+                    <option value="@technician" selected= "@(Model.TechnicianAssigned == technician ? "selected" : null)">@technician</option>
+                }
+            </select>
+            <span asp-validation-for="TechnicianAssigned" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DateAttended" class="control-label"></label>
+            <input asp-for="DateAttended" class="form-control" type="date" />
+            <span asp-validation-for="DateAttended" class="text-danger"></span>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <p>@(Model.Status ?? "N/A")</p>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TechnicianAssigned" class="control-label"></label>
+            <p>@(Model.TechnicianAssigned ?? "Unassigned")</p>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DateAttended" class="control-label"></label>
+            <p>@(Model.DateAttended?.ToString("yyyy-MM-dd") ?? "N/A")</p>
+        </div>
+    }
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+
+    
+
+

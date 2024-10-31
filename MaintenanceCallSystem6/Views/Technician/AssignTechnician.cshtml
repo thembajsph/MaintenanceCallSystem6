@@ -1,0 +1,27 @@
+﻿@model MaintenanceCallSystem6.ViewModels.TechnicianAssignViewModel
+
+<h2>Assign Technician</h2>
+<h4>Maintenance Call: @Model.MaintenanceCall.Description</h4>
+
+<form asp-action="AssignTechnician" method="post">
+    <div class="form-group">
+        <label asp-for="TechnicianId">Assign Technician</label>
+        @if (Model.Technicians != null && Model.Technicians.Any())
+        {
+            <select asp-for="TechnicianId" asp-items="Model.Technicians" class="form-control">
+                <option value="">-- Select Technician --</option>
+            </select>
+        }
+        else
+        {
+            <p>No technicians available.</p>
+        }
+        <span asp-validation-for="TechnicianId" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Assign Technician</button>
+    </div>
+</form>
+
+
+
